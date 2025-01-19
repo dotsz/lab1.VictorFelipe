@@ -1,0 +1,137 @@
+classDiagram
+    class Book {
+        -String title;
+        -String ISBN;
+
+        +Book();
+        +Book(double price, int quantity, String description, Cart cart, String title, int copies, String author, String ISBN)
+
+        +getTitle() String;
+        +getISBN() String;
+        +setTitle(String title);
+        +setISBN(String ISBN);
+
+        +toString() String;
+        +equals(Object obj) boolean;
+        +hashCode() int;
+    }
+
+    class Cart{
+        -List<CartItem> items;
+
+        +Cart();
+        +Cart(List<CartItem> items);
+
+        +addItem(CartItem item) void;
+        +getItems() List<CartItem>;
+        +setItems(List<CartItem> items) void;
+
+        +toString() String;
+        +equals(Object obj) boolean;
+        +hashCode() int;
+    }
+
+    class CartItem{
+        -double price;
+        -int quantity;
+        -String description;
+        -Cart cart;
+
+        +CartItem();
+        +CartItem(double price, int quantity, String description, Cart cart);
+
+        +getPrice() double;
+        +getQuantity() int;
+        +getDescription() String;
+        +getCart() Cart;
+        +setPrice(double price) void;
+        +setQuantity(int quantity) void;
+        +setDescription(String description) void;
+        +setCart(Cart cart) void;
+
+        +toString() String;
+        +equals(Object obj) boolean;
+        +hashCode() int;
+    }
+
+    class DiscMag {
+        -boolean hasDisc;
+
+        +DiscMag();
+        +DiscMag(double price, int quantity, String description, Cart cart, String title, int copies, int orderQty, Date currIssue, boolean hasDisc)
+
+        +getHasDisc() boolean;
+        +setHasDisc(boolean hasDisc) void;
+
+        +toString() String;
+        +equals(Object obj) boolean;
+        +hashCode() int;
+    }
+
+    class Magazine{
+        -int orderQty;
+        -Date currIssue;
+
+        +Magazine();
+        +Magazine(double price, int quantity, String description, Cart cart, String title, int copies, int orderQty, Date currIssue)
+
+        +getOrderQty() int;
+        +getCurrIssue() Date;
+        +setOrderQty(int orderQty) void;
+        +setCurrIssue(Date currIssue) void;
+
+        +toString() String;
+        +equals(Object obj) boolean;
+        +hashCode() int;
+    }
+
+    class Publication{
+        -String title;
+        -int copies;
+
+        +Publication();
+        +Publication(double price, int quantity, String description, Cart cart, String title, int copies)
+
+        +getTitle() String;
+        +getCopies() int;
+        +setTitle(String title) void;
+        +setCopies(int copies) void;
+
+        +toString() String;
+        +equals(Object obj) boolean;
+        +hashCode() int;
+    }
+
+    class SaleableItem{
+        <<interface>>
+        +getPrice() double;
+        +sellItem() void;
+    }
+
+    class Ticket {
+        -String text;
+
+        +Ticket();
+
+        +getText() String;
+        +setText(String text) void;
+
+        +toString() String;
+        +equals(Object obj) boolean;
+        +hashCode() int;
+    }
+    Book <|-- Publication
+    CartItem <|.. Serializable
+    CartItem <|-- SaleableItem
+    DiscMag <|-- Magazine
+    Magazine <|-- Publication
+    Publication <|-- CartItem
+    Publication <|..Serializable
+    Ticket <|-- CartItem
+
+
+
+
+
+
+
