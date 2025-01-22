@@ -8,4 +8,6 @@ import java.util.List;
 public interface DiscMagRepository extends JpaRepository<DiscMag, Long> {
     List<DiscMag> findByHasDiscTrue();
     List<DiscMag> findByHasDiscFalse();
+
+    List<DiscMag> findByHasDisc(boolean b);
 }

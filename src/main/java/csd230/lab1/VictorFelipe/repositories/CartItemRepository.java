@@ -9,8 +9,6 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
     List<CartItem> findByPrice(double price);
     CartItem findById(long id);
     List<CartItem> findByDescriptionContaining(String keyword);
-    List<CartItem> findByPriceGreaterThan(double price);
-    List<CartItem> findByPriceLessThan(double price);
-
+    List<CartItem> findByClass(Class<?> clazz);
 
 }

@@ -2,27 +2,38 @@ package csd230.lab1.VictorFelipe.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class CartItem {
+@Table(name = "cart_item")
+public class CartItem {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cart_item_seq")
-    @SequenceGenerator(name = "cart_item_seq", sequenceName = "cart_item_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "price", nullable = false)
+
+    @Column(name = "price", nullable = true)
     private double price;
 
-    @Column(name = "quantity", nullable = false)
+    @Column(name = "quantity", nullable = true)
     private int quantity;
 
     @Column(name = "description")
     private String description;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "cart_id")
     private Cart cart;
+
+    public CartItem() {
+    }
+
+    public CartItem(double price, int quantity, String description) {
+        this.price = price;
+        this.quantity = quantity;
+        this.description = description;
+    }
 
     public Long getId() {
         return id;
@@ -71,17 +82,18 @@ public abstract class CartItem {
                 ", price=" + price +
                 ", quantity=" + quantity +
                 ", description='" + description + '\'' +
+                ", cart=" + cart +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof CartItem cartItem)) return false;
-        return id.equals(cartItem.id) && price == cartItem.price && quantity == cartItem.quantity && description.equals(cartItem.description);
+        return Double.compare(getPrice(), cartItem.getPrice()) == 0 && getQuantity() == cartItem.getQuantity() && Objects.equals(getId(), cartItem.getId()) && Objects.equals(getDescription(), cartItem.getDescription()) && Objects.equals(getCart(), cartItem.getCart());
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode() + Double.hashCode(price) + quantity + description.hashCode();
+        return Objects.hash(getId(), getPrice(), getQuantity(), getDescription(), getCart());
     }
 }
